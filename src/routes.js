@@ -58,6 +58,8 @@ import NewAsset from "layouts/ecommerce/new-user";
 import EditProduct from "layouts/ecommerce/products/edit-product";
 import ProductPage from "layouts/ecommerce/products/product-page";
 import OrderList from "layouts/ecommerce/orders/order-list";
+import AssetList from "layouts/ecommerce/order-list";
+
 import OrderDetails from "layouts/ecommerce/orders/order-details";
 import SignInBasic from "layouts/authentication/sign-in/basic";
 // import SignInCover from "layouts/authentication/sign-in/cover";
@@ -276,8 +278,8 @@ const routes = [
           {
             name: "Asset List",
             key: "order-list",
-            route: "/ecommerce/orders/order-list",
-            component: <OrderList />,
+            route: "/ecommerce/order-list",
+            component: <AssetList />,
           },
         ],
       },

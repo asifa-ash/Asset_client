@@ -34,7 +34,7 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import dataTableData from "layouts/ecommerce/orders/order-list/data/dataTableData";
+import dataTableData from "layouts/ecommerce/order-list/data/dataTableData";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getAll } from "redux/async/users";
@@ -83,12 +83,12 @@ function OrderList() {
       <DashboardNavbar />
       <MDBox my={3}>
         <MDBox display="flex" justifyContent="space-between" alignItems="flex-start" mb={2}>
-        <Link to={"/pages/users/new-user"}>
+        <Link to={"/ecommerce/new-user"}>
         <MDButton variant="gradient" color="info">
-            new User
+            new Asset
           </MDButton>
         </Link>
-
+          
           <MDBox display="flex">
             <MDButton variant={menu ? "contained" : "outlined"} color="dark" onClick={openMenu}>
               filters&nbsp;
