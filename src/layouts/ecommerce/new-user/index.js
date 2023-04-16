@@ -100,6 +100,8 @@ function NewUser() {
     }
   };
 
+  console.log(initialValues,currentValidation);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />

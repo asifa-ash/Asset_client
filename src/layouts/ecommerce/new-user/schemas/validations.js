@@ -23,22 +23,18 @@ const {
 const validations = [
   Yup.object().shape({
     [fName.name]: Yup.string().required(fName.errorMsg),
-    [type.name]: Yup.string().required(type.errorMsg),
-    [manufacturer.name]: Yup.string()
-      .required(manufacturer.errorMsg)
-      .email(manufacturer.invalidMsg),
+
+ 
   }),
   Yup.object().shape({
-    [model.name]: Yup.string().required(model.errorMsg),
+
     [WarrantyType.name]: Yup.string().required(WarrantyType.errorMsg),
-    [WarrantyExpiry.name]: Yup.string().required(WarrantyExpiry.errorMsg),
-    [joining_date.name]: Yup.string().required(joining_date.errorMsg),
+    
   }),
   Yup.object().shape({
-    [sla.name]: Yup.string().required(sla.errorMsg),
-    [status.name]: Yup.string().required(status.errorMsg),
+   
     [Serial_number.name]: Yup.string().required(Serial_number.errorMsg),
-    [photo.name]: Yup.string().required(photo.errorMsg),
+
   }),
 ];
 

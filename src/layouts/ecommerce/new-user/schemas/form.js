@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 
 const form = {
-  formId: "new-user-form",
+  formId: "new-user-form1",
   formField: {
     fName: {
       name: "fName",
