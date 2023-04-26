@@ -37,7 +37,7 @@ import DataTable from "examples/Tables/DataTable";
 import dataTableData from "layouts/ecommerce/order-list/data/dataTableData";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAll } from "redux/async/users";
+import { getAll } from "redux/async/assets";
 import { Link } from "react-router-dom";
 
 function OrderList() {
@@ -47,13 +47,13 @@ function OrderList() {
   const openMenu = (event) => setMenu(event.currentTarget);
   const closeMenu = () => setMenu(null);
 
-  const usersData = useSelector((state) => state.usersReducer?.users);
+  const assetsData = useSelector((state) => state.assetReducer?.assets);
   useEffect(() => {
 
-    if (usersData?.length > 0) {
-      setUsers(usersData);
+    if (assetsData?.length > 0) {
+      setUsers(assetsData);
     }
-  }, [usersData]);
+  }, [assetsData]);
   useEffect(() => {
     dispatch(getAll());
   }, []);

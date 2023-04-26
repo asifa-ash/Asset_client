@@ -2,10 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { auth } from "apis/authApis";
 
 export const register = createAsyncThunk("auth/register", async (data) => {
-  console.log("----async");
+  
   try {
-    await auth.register(data);
-    console.log(res, "___");
+    const res=await auth.register(data);
+    return res.data
+ 
   } catch (err) {
     console.log(err);
   }

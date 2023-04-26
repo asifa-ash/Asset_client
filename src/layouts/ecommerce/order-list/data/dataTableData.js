@@ -32,19 +32,19 @@ const dataTableData = {
   columns: [
     { Header: "id", accessor: "_id", Cell: ({ value }) => <IdCell id={value} /> },
     {
-      Header: "Name",
-      accessor: "Name",
+      Header: "Asset Name",
+      accessor: "fName",
       Cell: ({ value }) => <DefaultCell value={value} />,
     },
     {
       Header: "Type",
-      accessor: "Type",
+      accessor: "type",
       Cell: ({ value }) => <DefaultCell value={value} />,
     },
-    { Header: " Manufacturer", accessor: "Manufacturer", Cell: ({ value }) => <DefaultCell value={value} /> },
+    { Header: " Manufacturer", accessor: "manufacturer", Cell: ({ value }) => <DefaultCell value={value} /> },
     {
       Header: "Model",
-      accessor: "Model",
+      accessor: "model",
       Cell: ({ value }) => <DefaultCell value={value} />,
     },
     // {
@@ -64,8 +64,8 @@ const dataTableData = {
     //     return status;
     //   },
     // },
-    { Header: "SerialNumber", accessor: "SerialNumber", Cell: ({ value }) => <DefaultCell value={value} /> },
-    { Header: "Status", accessor: "Status", Cell: ({ value }) => <DefaultCell value={value} /> },
+    { Header: "SerialNumber", accessor: "Serial_number", Cell: ({ value }) => <DefaultCell value={value} /> },
+    { Header: "Status", accessor: "status", Cell: ({ value }) => <DefaultCell value={value} /> },
     // {
     //   Header: "Department",
     //   accessor: "product",
@@ -86,7 +86,7 @@ const dataTableData = {
       accessor: "WarrantyExpiry",
       Cell: ({ value }) => <DefaultCell value={value} />,
     },
-    { Header: "SLA", accessor: "SLA", Cell: ({ value }) => <DefaultCell value={value} /> },
+    { Header: "SLA", accessor: "sla", Cell: ({ value }) => <DefaultCell value={value} /> },
     { Header: "Image", accessor: "photo", Cell: ({ value }) => <DefaultCell value={value} /> },
     
     // {

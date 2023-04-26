@@ -2,7 +2,6 @@
   "name": "material-dashboard-2-pro-react",
   "version": "2.1.0",
   "private": true,
- 
   "author": "Creative Tim",
   "license": "See license in https://www.creative-tim.com/license",
   "description": "React version of Material Dashboard 2 PRO by Creative Tim",
@@ -54,6 +53,7 @@
     "react-router-dom": "6.2.1",
     "react-scripts": "5.0.0",
     "react-table": "7.7.0",
+    "react-toastify": "^9.1.2",
     "redux": "^4.2.1",
     "stylis": "4.0.13",
     "stylis-plugin-rtl": "2.1.1",

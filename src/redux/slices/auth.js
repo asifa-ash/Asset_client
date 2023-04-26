@@ -6,12 +6,17 @@ import { logout } from "redux/async/auth";
 const auth = createSlice({
   name: "auth",
   initialState: {
-    user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
+    user:
+      localStorage.getItem("user") == "undefined" || localStorage.getItem("user") == null
+        ? null
+        : JSON.parse(localStorage.getItem("user")),
   },
 
   extraReducers: (builder) => {
     builder.addCase(register.fulfilled, (state, action) => {
-      console.log("successful");
+      console.log(action.payload, "hhhhhhhnnnnnnnnnnbbbb");
+      alert(action.payload?.message);
+      window.location.href = "/authentication/sign-in/basic";
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.user = action.payload.user;

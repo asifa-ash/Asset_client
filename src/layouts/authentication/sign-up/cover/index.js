@@ -17,18 +17,24 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 import { useState } from "react";
-import { registerOP } from "../../../../redux/async/auth";
-import { auth } from "apis/authApis";
+import { register, registerOP } from "../../../../redux/async/auth";
+// import { auth } from "apis/authApis";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function Cover() {
+  const dispatch = useDispatch();
   const [data, setData] = useState({ username: "", password: "" });
   const handleChange = (e) => {
     setData((rest) => ({ ...rest, [e.target.name]: e.target.value }));
   };
+  const user = useSelector((state) => state.authReducer);
+  console.log(user,"kkkkkkkkkkkkjjhhh")
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("sign up", data);
-    await auth.register(data);
+   dispatch(register(data))
+    // await auth.register(data);
   };
   return (
     <CoverLayout image={bgImage}>
@@ -129,6 +135,7 @@ function Cover() {
           </form>
         </MDBox>
       </Card>
+      
     </CoverLayout>
   );
 }
