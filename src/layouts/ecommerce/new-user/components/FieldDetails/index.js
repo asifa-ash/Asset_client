@@ -27,13 +27,29 @@ import Autocomplete from "@mui/material/Autocomplete";
 // NewUser page components
 import FormField from "layouts/ecommerce/new-user/components/FormField";
 import MDInput from "components/MDInput";
+import { useEffect } from "react";
+import { TextField } from "@mui/material";
 
-function Socials({ formData }) {
-  
+function Socials({ formData, setFieldValue }) {
   const { formField, values, errors, touched } = formData;
   const { sla, status } = formField;
   const { sla: slaV, status: statusV } = values;
 
+  useEffect(() => {
+    console.log(slaV, sla, status);
+  }, [sla || status]);
+
+  const handleChange = (e) => {
+    console.log(e.target.name);
+    switch (e.target.name) {
+      case "sla":
+        setFieldValue("sla", e.target.value);
+        break;
+      case "status":
+        setFieldValue("status", e.target.value);
+        break;
+    }
+  };
   return (
     <MDBox>
       <MDTypography variant="h5" fontWeight="bold">
@@ -41,43 +57,46 @@ function Socials({ formData }) {
       </MDTypography>
       <MDBox mt={1.625}>
         <Grid container spacing={1}>
-          {/* <Grid item xs={12}>
-            <FormField
-              type={sla.type}
-              label={sla.label}
-              name={sla.name}
-              value={slaV}
-              placeholder={sla.placeholder}
-              error={errors.title && touched.title}
-              success={slaV.length > 0 && !errors.sla}
-            />
-          </Grid> */}
           <Grid item xs={12} sm={4} sx={{ mt: 2 }}>
             <Autocomplete
-              type={sla.type}
-              label={sla.label}
-              name={sla.name}
-              value={slaV}
-              defaultValue="SLA"
-         
+              onSelect={handleChange}
+              type={status.type}
+              label={status.label}
+              name={status.name}
+              value={statusV}
+              defaultValue="Status"
               options={["BTC", "CNY", "EUR", "GBP", "INR", "USD"]}
               renderInput={(params) => (
-                <MDInput
+                <TextField
                   {...params}
-                  variant="standard"
-                 
-                  // label={sla.label}
+                  margin="normal"
+                  name={status.name}
+                  label="Status"
+                  fullWidth
+                  value={statusV}
                 />
               )}
             />
           </Grid>
           <Grid item xs={12}>
-            <FormField
-              type={status.type}
-              label={status.label}
-              name={status.name}
-              value={statusV}
-              placeholder={status.placeholder}
+            <Autocomplete
+              onSelect={handleChange}
+              type={sla.type}
+              label={sla.label}
+              name={sla.name}
+              value={slaV}
+              defaultValue="SLA"
+              options={["BTC", "CNY", "EUR", "GBP", "INR", "USD"]}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  margin="normal"
+                  name={sla.name}
+                  label="Sla"
+                  fullWidth
+                  value={slaV}
+                />
+              )}
             />
           </Grid>
         </Grid>

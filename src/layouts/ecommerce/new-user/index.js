@@ -50,12 +50,12 @@ function getSteps() {
   return [1, 2, 3];
 }
 
-function getStepContent(stepIndex, formData) {
+function getStepContent(stepIndex, formData, setFieldValue) {
   switch (stepIndex) {
     case 0:
       return <UserInfo formData={formData} />;
     case 1:
-      return <FieldDetails formData={formData} />;
+      return <FieldDetails formData={formData} setFieldValue={setFieldValue} />;
     case 2:
       return <ExtraUserDetails formData={formData} />;
     default:
@@ -90,7 +90,7 @@ function NewUser() {
   };
 
   const handleSubmit = (values, actions) => {
-  console.log(values,"jjjjhjhjhj")
+    console.log(values, "jjjjhjhjhj");
     if (isLastStep) {
       dispatch(add(values));
     } else {
@@ -100,7 +100,7 @@ function NewUser() {
     }
   };
 
-  console.log(initialValues,currentValidation);
+  console.log(initialValues, currentValidation);
 
   return (
     <DashboardLayout>
@@ -113,7 +113,7 @@ function NewUser() {
               validationSchema={currentValidation}
               onSubmit={handleSubmit}
             >
-              {({ values, errors, touched, isSubmitting }) => (
+              {({ values, errors, touched, isSubmitting, setFieldValue }) => (
                 <Form id={formId} autoComplete="off">
                   <Card sx={{ height: "100%" }}>
                     <MDBox mx={2} mt={-3}>
@@ -127,12 +127,16 @@ function NewUser() {
                     </MDBox>
                     <MDBox p={3}>
                       <MDBox>
-                        {getStepContent(activeStep, {
-                          values,
-                          touched,
-                          formField,
-                          errors,
-                        })}
+                        {getStepContent(
+                          activeStep,
+                          {
+                            values,
+                            touched,
+                            formField,
+                            errors,
+                          },
+                          setFieldValue
+                        )}
                         <MDBox mt={2} width="100%" display="flex" justifyContent="space-between">
                           {activeStep === 0 ? (
                             <MDBox />
