@@ -166,6 +166,10 @@ const pageRoutes = [
             name: "cover",
             route: "/authentication/reset-password/cover",
           },
+          {
+            name:"newPass",
+            route: "/authentication/newPass"
+          }
         ],
       },
     ],

@@ -50,14 +50,14 @@ function getSteps() {
   return [1, 2, 3];
 }
 
-function getStepContent(stepIndex, formData) {
+function getStepContent(stepIndex, formData,setFieldValue) {
   switch (stepIndex) {
     case 0:
-      return <UserInfo formData={formData} />;
+      return <UserInfo formData={formData}  />;
     case 1:
-      return <FieldDetails formData={formData} />;
+      return <FieldDetails formData={formData} setFieldValue={setFieldValue}/>;
     case 2:
-      return <ExtraUserDetails formData={formData} />;
+      return <ExtraUserDetails formData={formData} setFieldValue={setFieldValue} />;
     default:
       return null;
   }
@@ -90,8 +90,11 @@ function NewUser() {
   };
 
   const handleSubmit = (values, actions) => {
+  
+
     if (isLastStep) {
-      dispatch(add(values));
+      console.log(values,"hhhhhhhhh");
+      dispatch(add({...values,role:"user"}));
     } else {
       setActiveStep((step) => step++);
       actions.setTouched({});
@@ -110,7 +113,7 @@ function NewUser() {
               validationSchema={currentValidation}
               onSubmit={handleSubmit}
             >
-              {({ values, errors, touched, isSubmitting }) => (
+              {({ values, errors, touched, isSubmitting , setFieldValue}) => (
                 <Form id={formId} autoComplete="off">
                   <Card sx={{ height: "100%" }}>
                     <MDBox mx={2} mt={-3}>
@@ -129,7 +132,9 @@ function NewUser() {
                           touched,
                           formField,
                           errors,
-                        })}
+                        },
+                        setFieldValue
+                        )}
                         <MDBox mt={2} width="100%" display="flex" justifyContent="space-between">
                           {activeStep === 0 ? (
                             <MDBox />

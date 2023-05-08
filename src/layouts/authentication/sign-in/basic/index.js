@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 import { useEffect, useRef, useState } from "react";
 
 // react-router-dom components
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -49,10 +49,11 @@ import { useSelector } from "react-redux";
 
 function Basic() {
   const nav = useNavigate();
+  const place = useLocation();
   const dispatch = useDispatch();
   const [alert, setAlert] = useState({ position: "0", opacity: "0" });
   const [rememberMe, setRememberMe] = useState(false);
-  const [data, setData] = useState({ username: "", password: "" });
+  const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState({ isError: false, message: "" });
   const handleChange = (e) => {
     setData((rest) => ({ ...rest, [e.target.name]: e.target.value }));
@@ -63,7 +64,7 @@ function Basic() {
   const handleSubmit = async (e) => {
     console.log("hello");
     e.preventDefault();
-    if (!(data.username.includes("@") && data.username.includes("."))) {
+    if (!(data.email.includes("@") && data.email.includes("."))) {
       setError({ message: "check your email", isError: true });
       setAlert({ position: "20px", opacity: "1" });
     } else if (data.password.length < 6) {
@@ -78,13 +79,18 @@ function Basic() {
       dispatch(login(data));
     }
   };
-  console.log(user);
 
   useEffect(() => {
-    console.log(user);
     if (user) {
-      console.log("logged");
-      nav("/dashboards/analytics");
+      console.log(user.role, "kkkkkuser");
+      if (!place.pathname.includes("reset-password") || location.href.includes("reset-password")) {
+        console.log(user.role,"role");
+        if (user.role === "admin") {
+          nav("/dashboards/analytics");
+        } else if(user.role==="user"){
+          nav("/user");
+        }
+      }
     } else {
       console.log(" no logged");
     }
@@ -128,13 +134,7 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput
-                type="email"
-                name="username"
-                label="Email"
-                fullWidth
-                onChange={handleChange}
-              />
+              <MDInput type="email" name="email" label="Email" fullWidth onChange={handleChange} />
             </MDBox>
             <MDBox mb={2}>
               <MDInput

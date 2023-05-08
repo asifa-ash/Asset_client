@@ -43,21 +43,21 @@ import ProfileOverview from "layouts/pages/profile/profile-overview";
 import NewUser from "layouts/pages/users/new-user";
 import Settings from "layouts/pages/account/settings";
 // import Billing from "layouts/pages/account/billing";
-// import Invoice from "layouts/pages/account/invoice";
+//  import Invoice from "layouts/pages/account/invoice";
 // import Timeline from "layouts/pages/projects/timeline";
 // import PricingPage from "layouts/pages/pricing-page";
 // import Widgets from "layouts/pages/widgets";
 // import RTL from "layouts/pages/rtl";
 // import Charts from "layouts/pages/charts";
 // import Notifications from "layouts/pages/notifications";
-// import Kanban from "layouts/applications/kanban";
-// import Wizard from "layouts/applications/wizard";
-// import DataTables from "layouts/applications/data-tables";
-// import Calendar from "layouts/applications/calendar";
+//  import Kanban from "layouts/applications/kanban";
+//  import Wizard from "layouts/applications/wizard";
+//  import DataTables from "layouts/applications/data-tables";
+import Calendar from "layouts/applications/calendar";
 import NewAsset from "layouts/ecommerce/new-user";
 import EditProduct from "layouts/ecommerce/products/edit-product";
 import ProductPage from "layouts/ecommerce/products/product-page";
-import OrderList from "layouts/ecommerce/orders/order-list";
+ import OrderList from "layouts/ecommerce/orders/order-list";
 import AssetList from "layouts/ecommerce/order-list";
 
 import OrderDetails from "layouts/ecommerce/orders/order-details";
@@ -78,9 +78,10 @@ import profilePicture from "assets/images/team-3.jpg";
 import { store } from "redux/redux.config";
 
 const routes = [
+ 
   {
     type: "collapse",
-    name: store.getState().authReducer.user?.username,
+    name: store.getState().authReducer.user?.email,
     key: "brooklyn-alice",
     icon: <MDAvatar src={profilePicture} alt="Brooklyn Alice" size="sm" />,
     collapse: [
@@ -287,12 +288,12 @@ const routes = [
       //   name: "Orders",
       //   key: "orders",
       //   collapse: [
-      //     {
-      //       name: "Order List",
-      //       key: "order-list",
-      //       route: "/ecommerce/orders/order-list",
-      //       component: <OrderList />,
-      //     },
+          // {
+          //   name: "Order List",
+          //   key: "order-list",
+          //   route: "/ecommerce/orders/order-list",
+          //   component: <OrderList />,
+          // },
       //     {
       //       name: "Order Details",
       //       key: "order-details",
@@ -355,6 +356,7 @@ const routes = [
             route: "/authentication/reset-password/cover",
             component: <ResetCover />,
           },
+          
         ],
       },
     ],

@@ -27,32 +27,54 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
 import bgImage from "assets/images/bg-reset-cover.jpeg";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { jsx } from "@emotion/react";
 
 function Cover() {
-  const [email, setEmail] = useState("");
+  const { id, token } = useParams();
+console.log(id,token,"lllll");
+  const history = useNavigate();
+  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const setVal = (e) => {
-    setEmail(e.target.value);
-    console.log(email,"emailmmm");
+  const userValid = async () => {
+    const res = await fetch(`http://localhost:5000/otp/getotp${id}/${token}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    if (data.status == 201) {
+      console.log("userValid");
+    } else {
+      history("*");
+    }
   };
-  const sendLink = async (e) => {
+  const setVal = (e) => {
+    setPassword(e.target.value);
+  };
+  const sendPassword = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:5000/otp/sent", {
+    const res = await fetch(`http://localhost:5000/auth/resetpass/${id}/${token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ password }),
     });
     const data = await res.json();
     if (data.status == 201) {
-      setEmail("");
+      setPassword("");
       setMessage(true);
-    } else {
-      alert("invalid user");
+    }else{
+      alert("! token Expire generate new link")
     }
   };
+
+  useEffect(() => {
+    userValid();
+  }, []);
   return (
     <CoverLayout coverHeight="50vh" image={bgImage}>
       <Card>
@@ -68,22 +90,26 @@ function Cover() {
           textAlign="center"
         >
           <MDTypography variant="h3" fontWeight="medium" color="white" mt={1}>
-            Reset Password
+            Enter Your New Password
           </MDTypography>
-          
           <MDTypography display="block" variant="button" color="white" my={1}>
-            You will receive an e-mail in maximum 60 seconds
+            {message? "password update successfully":""}
           </MDTypography>
-          {message ? <h6 style={{color:"white"}}>password reset link send successfully in your email</h6> : " "}
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={4}>
-              <MDInput type="email" label="Email" onChange={setVal} variant="standard" fullWidth />
+              <MDInput
+                type="password"
+                onChange={setVal}
+                label="password"
+                variant="standard"
+                fullWidth
+              />
             </MDBox>
             <MDBox mt={6} mb={1}>
-              <MDButton variant="gradient" color="info" onClick={sendLink} fullWidth>
-                reset
+              <MDButton onClick={sendPassword} variant="gradient" color="info" fullWidth>
+                Sent
               </MDButton>
             </MDBox>
           </MDBox>

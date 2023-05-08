@@ -24,16 +24,17 @@ import { useSelector } from "react-redux";
 
 function Cover() {
   const dispatch = useDispatch();
-  const [data, setData] = useState({ username: "", password: "" });
+  const [data, setData] = useState({ email: "", password: "" });
   const handleChange = (e) => {
     setData((rest) => ({ ...rest, [e.target.name]: e.target.value }));
   };
   const user = useSelector((state) => state.authReducer);
   console.log(user,"kkkkkkkkkkkkjjhhh")
   const handleSubmit = async (e) => {
+ 
     e.preventDefault();
-    console.log("sign up", data);
-   dispatch(register(data))
+   
+   dispatch(register({...data,role:"admin"}))
     // await auth.register(data);
   };
   return (
@@ -73,10 +74,10 @@ function Cover() {
               <MDInput
                 type="email"
                 label="Email"
-                name="username"
+                name="email"
                 variant="standard"
                 onChange={handleChange}
-                value={data.username}
+                value={data.email}
                 fullWidth
               />
             </MDBox>

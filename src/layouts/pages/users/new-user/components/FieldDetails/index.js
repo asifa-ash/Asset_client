@@ -29,7 +29,12 @@ import FormField from "layouts/pages/users/new-user/components/FormField";
 function Socials({ formData }) {
   const { formField, values, errors, touched } = formData;
   const { title, department, reporting_manager, joining_date } = formField;
-  const { title: titleV, department: departmentV, reporting_manager: reporting_managerV, joining_date: joining_dateV} = values;
+  const {
+    title: titleV,
+    department: departmentV,
+    reporting_manager: reporting_managerV,
+    joining_date: joining_dateV,
+  } = values;
 
   return (
     <MDBox>
@@ -38,7 +43,7 @@ function Socials({ formData }) {
       </MDTypography>
       <MDBox mt={1.625}>
         <Grid container spacing={1}>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6}>
             <FormField
               type={title.type}
               label={title.label}
@@ -49,7 +54,7 @@ function Socials({ formData }) {
               success={titleV.length > 0 && !errors.title}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6}>
             <FormField
               type={department.type}
               label={department.label}
@@ -58,7 +63,9 @@ function Socials({ formData }) {
               placeholder={department.placeholder}
             />
           </Grid>
-          <Grid item xs={12}>
+        </Grid>
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={6}>
             <FormField
               type={reporting_manager.type}
               label={reporting_manager.label}
@@ -67,7 +74,7 @@ function Socials({ formData }) {
               placeholder={reporting_manager.placeholder}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6}>
             <FormField
               type={joining_date.type}
               label={joining_date.label}

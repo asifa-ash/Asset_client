@@ -50,8 +50,37 @@ import team1 from "assets/images/team-1.jpg";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
+import { useEffect, useState } from "react";
+import { setLayout } from "context";
+import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import { getOne } from "redux/async/users";
 
 function Overview() {
+   const user = useSelector((state) => state.authReducer.user);
+  const users = useSelector((state) => state.usersReducer?.users);
+  const [userData, setUserData] = useState("")
+  const [controller, dispatch] = useMaterialUIController();
+  console.log(user._id,"user edaa");
+  useEffect(() => {
+    setLayout(dispatch,"user")
+    }, [])
+  console.log(userData);
+
+  useEffect(() => {
+
+    if (users?.length > 0) {
+      setUserData(users);
+      
+    }
+  }, [users]);
+  useEffect(() => {
+    dispatch(getOne());
+  }, []);
+
+  
   return (
     <DashboardLayout>
       <DashboardNavbar />

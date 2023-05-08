@@ -21,3 +21,14 @@ export const getAll = createAsyncThunk("users/getAll", async (data) => {
     console.log(err);
   }
 });
+
+export const getOne = createAsyncThunk("users/getOne", async (data) => {
+  console.log(data, "----async");
+  try {
+    const res = await users.getOne(data);
+
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+});

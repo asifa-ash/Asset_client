@@ -53,7 +53,7 @@ function Socials({ formData, setFieldValue }) {
   return (
     <MDBox>
       <MDTypography variant="h5" fontWeight="bold">
-        Socials
+        About Asset
       </MDTypography>
       <MDBox mt={1.625}>
         <Grid container spacing={1}>
@@ -65,7 +65,7 @@ function Socials({ formData, setFieldValue }) {
               name={status.name}
               value={statusV}
               defaultValue="Status"
-              options={["BTC", "CNY", "EUR", "GBP", "INR", "USD"]}
+              options={["Allocated", "Unallocated","Damaged","Service"]}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -78,7 +78,7 @@ function Socials({ formData, setFieldValue }) {
               )}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={4} sx={{ mt: 2 }}>
             <Autocomplete
               onSelect={handleChange}
               type={sla.type}
@@ -86,7 +86,7 @@ function Socials({ formData, setFieldValue }) {
               name={sla.name}
               value={slaV}
               defaultValue="SLA"
-              options={["BTC", "CNY", "EUR", "GBP", "INR", "USD"]}
+              options={["True" ,"False"]}
               renderInput={(params) => (
                 <TextField
                   {...params}

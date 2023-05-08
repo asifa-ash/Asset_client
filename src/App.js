@@ -14,6 +14,9 @@ Coded by www.creative-tim.com
 */
 
 import { useState, useEffect, useMemo } from "react";
+import NewPass from "layouts/authentication/newPass";
+import userDash from "./layouts/userDash/UserDash.js";
+import UserD from "./layouts/userDash/profile/profile-overview";
 
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -52,8 +55,12 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
+import { useSelector } from "react-redux";
+import UserDash from "./layouts/userDash/UserDash.js";
+import { setLayout } from "context/index.js";
 
 export default function App() {
+  const user = useSelector((state) => state.authReducer.user);
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -150,20 +157,50 @@ export default function App() {
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
         <CssBaseline />
-        {layout === "dashboard" && (
-          <>
-            <Sidenav
-              color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="FindHub"
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            <Configurator />
-            {configsButton}
-          </>
-        )}
+        {(layout === "dashboard") ||
+          (layout === "user") && (
+            <>
+              <Sidenav
+                color={sidenavColor}
+                brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+                brandName="FindHub"
+                routes={
+                  layout === "user"
+                    ? {
+                        type: "collapse",
+                        name: store.getState().authReducer.user?.email,
+                        key: "brooklyn-alice",
+                        icon: <MDAvatar src={profilePicture} alt="Brooklyn Alice" size="sm" />,
+                        collapse: [
+                          {
+                            name: "My Profile",
+                            key: "my-profile",
+                            route: "/pages/profile/profile-overview",
+                            component: <ProfileOverview />,
+                          },
+                          {
+                            name: "Settings",
+                            key: "profile-settings",
+                            route: "/pages/account/settings",
+                            component: <Settings />,
+                          },
+                          {
+                            name: "Logout",
+                            key: "logout",
+                            route: "/authentication/sign-in/basic",
+                            component: <SignInBasic />,
+                          },
+                        ],
+                      }
+                    : routes
+                }
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}
+              />
+              <Configurator />
+              {configsButton}
+            </>
+          )}
         {layout === "vr" && <Configurator />}
         <Routes>
           {getRoutes(routes)}
@@ -174,13 +211,13 @@ export default function App() {
   ) : (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
+
       {layout === "dashboard" && (
         <>
           <Sidenav
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
             brandName="FindHub"
-            
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
@@ -192,7 +229,20 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboards/analytics" />} />
+        <Route
+          path="*"
+          element={
+            user && user?.role === "admin" ? (
+              <Navigate to="/dashboards/analytics" />
+            ) : user?.role === "user" ? (
+              <Navigate to="/user" />
+            ) : (
+              <h1>page not found</h1>
+            )
+          }
+        />
+        <Route path="/user" element={<UserD />} />
+        <Route path="/authentication/new-pass/:id/:token" element={<NewPass />} />
       </Routes>
     </ThemeProvider>
   );

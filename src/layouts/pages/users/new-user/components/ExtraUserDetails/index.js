@@ -25,8 +25,9 @@ import MDTypography from "components/MDTypography";
 
 // NewUser page components
 import FormField from "layouts/pages/users/new-user/components/FormField";
+import { Autocomplete, TextField } from "@mui/material";
 
-function Profile({ formData }) {
+function Profile({ formData, setFieldValue }) {
   const { formField, values } = formData;
   const { userType, location, contractType, photo } = formField;
   const {
@@ -36,6 +37,18 @@ function Profile({ formData }) {
     photo: photoV,
   } = values;
 
+  const handleChange = (e) => {
+    console.log(e.target.name);
+    switch (e.target.name) {
+      case "contractType":
+        setFieldValue("contractType", e.target.value);
+        break;
+      case "userType":
+        setFieldValue("userType", e.target.value);
+        break;
+    }
+  };
+
   return (
     <MDBox>
       <MDTypography variant="h5" fontWeight="bold">
@@ -44,35 +57,58 @@ function Profile({ formData }) {
       <MDBox mt={1.625}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
-            <FormField
-              type={location.type}
-              label={location.label}
-              name={location.name}
-              value={locationV}
-              placeholder={location.placeholder}
+          <Autocomplete
+              onSelect={handleChange}
+              type={contractType.type}
+              label={contractType.label}
+              name={contractType.name}
+              value={contractTypeV}
+              defaultValue="Contract Type"
+              options={["Allocated", "Unallocated", "Damaged", "Service"]}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  margin="normal"
+                  name={contractType.name}
+                  label="Contract Type"
+                  fullWidth
+                  value={contractTypeV}
+                />
+              )}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormField
+            <Autocomplete
+              onSelect={handleChange}
               type={userType.type}
               label={userType.label}
               name={userType.name}
               value={userTypeV}
-              placeholder={userType.placeholder}
-              multiline
+              defaultValue="User Type"
+              options={["Allocated", "Unallocated", "Damaged", "Service"]}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  margin="normal"
+                  name={userType.name}
+                  label="User Type"
+                  fullWidth
+                  value={userTypeV}
+                />
+              )}
             />
           </Grid>
         </Grid>
 
         <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
+           
             <FormField
-              type={contractType.type}
-              label={contractType.label}
-              name={contractType.name}
-              value={contractTypeV}
-              placeholder={contractType.placeholder}
-              multiline
+              type={location.type}
+              label={location.label}
+              name={location.name}
+              value={locationV}
+              placeholder={location.placeholder}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
